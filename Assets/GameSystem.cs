@@ -8,11 +8,12 @@ public class GameSystem : MonoBehaviour {
     public int playerHP = 7;
     public int pressingAbility = 5;
     bool gameIsPlaying = true;
-    public bool canPlayerPressingButtons = true;
+    public bool canPlayerPressButtons = true;
 
 	// Use this for initialization
 	void Start () {
         InvokeRepeating("SpawnSquares", 1, 1);
+        InvokeRepeating("increasePressingButtons", 1, 5);
 	}
 	
 	// Update is called once per frame
@@ -21,6 +22,7 @@ public class GameSystem : MonoBehaviour {
         playerLife();
         Debug.Log(gameIsPlaying);
         Debug.Log(pressingAbility);
+        checkPlayerPressingButtons();
     }
 
     void SpawnSquares()
@@ -43,6 +45,10 @@ public class GameSystem : MonoBehaviour {
         if (pressingAbility <= 0)
         {
             canPlayerPressButtons = false;
+        }
+        if(pressingAbility > 0)
+        {
+            canPlayerPressButtons = true;
         }
     }
     void increasePressingButtons()

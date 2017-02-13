@@ -9,13 +9,22 @@ public class Identity : MonoBehaviour {
     int uniqueState;
     bool isUnique = false;
     int worth = 1;
+    int bonusLife = 0;
+    int pressingAbilityBonus = 0;
+    bool squareExists = true;
 	// Use this for initialization
 	void Start () {
         uniqueState = (int)Random.Range(0,10);
         if(uniqueState == 2)
         {
             isUnique = true;
+        }
+        if(isUnique)
+        {
+            //unique stuff
             worth = 5;
+            pressingAbilityBonus = 2;
+            bonusLife = (int)Random.Range(0, 10);
         }
         lifeSpan = (int)Random.Range(2, 10);
         gs = FindObjectOfType(typeof(GameSystem)) as GameSystem;
@@ -41,18 +50,36 @@ public class Identity : MonoBehaviour {
         GetComponent<SpriteRenderer>().color = listOfColors[random];
         identity = codes[random];
         InvokeRepeating("SquareLife", 0,1);
+        InvokeRepeating("shrinkSquares", 0, 1);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.inputString == identity)
-        {
-            gs.pressingAbility = gs.pressingAbility - 1;
-            Destroy(gameObject);
-            gs.increasePoint(worth);
+        if(squareExists)
+        transform.localScale = new Vector3(transform.localScale.x * .99f, transform.localScale.y * .99f, 0);
+        if (gs.canPlayerPressButtons) {
+            if (Input.inputString == identity)
+            {
+                pressingAbilityFunction();
+                squareIsPressed();
+            }
         }
         checkSquareLife();
 	}
+
+    void squareIsPressed()
+    {
+        
+        Destroy(gameObject);
+        gs.increasePoint(worth);
+        gs.playerHP += bonusLife;
+    }
+
+    void pressingAbilityFunction()
+    {
+        gs.pressingAbility = gs.pressingAbility - 1;
+        gs.pressingAbility = gs.pressingAbility + pressingAbilityBonus;
+    }
     void SquareLife()
     {
         lifeSpan--;
@@ -62,8 +89,8 @@ public class Identity : MonoBehaviour {
         if (lifeSpan == 0)
         {
             Destroy(gameObject);
+            squareExists = false;
             gs.playerHP--;
         }
     }
-
 }

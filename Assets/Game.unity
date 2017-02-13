@@ -120,6 +120,9 @@ MonoBehaviour:
   squares: {fileID: 1000011579007596, guid: 59585b1695479bb48b2b30bac241616d, type: 2}
   points: 0
   pointsText: {fileID: 826762517}
+  playerHP: 7
+  pressingAbility: 5
+  canPlayerPressButtons: 1
 --- !u!4 &473576840
 Transform:
   m_ObjectHideFlags: 0
