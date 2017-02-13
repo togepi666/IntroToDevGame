@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class GameSystem : MonoBehaviour {
     public GameObject squares;
     public int points;
@@ -23,6 +24,10 @@ public class GameSystem : MonoBehaviour {
         Debug.Log(gameIsPlaying);
         Debug.Log(pressingAbility);
         checkPlayerPressingButtons();
+        if(gameIsPlaying == false)
+        {
+            SceneManager.LoadScene("GameOver");
+        }
     }
 
     void SpawnSquares()
@@ -38,6 +43,7 @@ public class GameSystem : MonoBehaviour {
         if(playerHP <= 0)
         {
             gameIsPlaying = false;
+            Debug.Log("ur dead");
         }
     }
     void checkPlayerPressingButtons()
