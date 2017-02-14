@@ -10,7 +10,7 @@ public class Identity : MonoBehaviour {
     bool isUnique = false;
     int worth = 1;
     int bonusLife = 0;
-    int pressingAbilityBonus = 0;
+    int pressingAbilityBonus = 1;
     bool squareExists = true;
 	// Use this for initialization
 	void Start () {
@@ -23,7 +23,7 @@ public class Identity : MonoBehaviour {
         {
             //unique stuff
             worth = 5;
-            pressingAbilityBonus = 2;
+            pressingAbilityBonus = 3;
             bonusLife = (int)Random.Range(0, 10);
         }
         lifeSpan = (int)Random.Range(2, 10);
@@ -60,8 +60,8 @@ public class Identity : MonoBehaviour {
         if (gs.canPlayerPressButtons) {
             if (Input.inputString == identity)
             {
-                pressingAbilityFunction();
                 squareIsPressed();
+                pressingAbilityFunction(pressingAbilityBonus);
             }
         }
         checkSquareLife();
@@ -75,10 +75,9 @@ public class Identity : MonoBehaviour {
         gs.playerHP += bonusLife;
     }
 
-    void pressingAbilityFunction()
+    void pressingAbilityFunction(int bonus)
     {
-        gs.pressingAbility = gs.pressingAbility - 1;
-        gs.pressingAbility = gs.pressingAbility + pressingAbilityBonus;
+        gs.pressingAbility = gs.pressingAbility + bonus;
     }
     void SquareLife()
     {

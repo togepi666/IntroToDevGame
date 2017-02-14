@@ -6,6 +6,8 @@ public class GameSystem : MonoBehaviour {
     public GameObject squares;
     public int points;
     public Text pointsText;
+    public Text healthText;
+    public Text pressesText;
     public int playerHP = 7;
     public int pressingAbility = 5;
     bool gameIsPlaying = true;
@@ -20,6 +22,8 @@ public class GameSystem : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         pointsText.text = "Points:" + points;
+        healthText.text = "Health:" + playerHP;
+        pressesText.text = "Presses:" + pressingAbility;
         playerLife();
         Debug.Log(gameIsPlaying);
         Debug.Log(pressingAbility);
@@ -27,6 +31,45 @@ public class GameSystem : MonoBehaviour {
         if(gameIsPlaying == false)
         {
             SceneManager.LoadScene("GameOver");
+        }
+        if (canPlayerPressButtons)
+        {
+            if (Input.inputString == "1")
+            {
+                pressingAbility--;
+            }
+            if (Input.inputString == "2")
+            {
+                pressingAbility--;
+            }
+            if (Input.inputString == "3")
+            {
+                pressingAbility--;
+            }
+            if (Input.inputString == "4")
+            {
+                pressingAbility--;
+            }
+            if (Input.inputString == "5")
+            {
+                pressingAbility--;
+            }
+            if (Input.inputString == "6")
+            {
+                pressingAbility--;
+            }
+            if (Input.inputString == "7")
+            {
+                pressingAbility--;
+            }
+            if (Input.inputString == "8")
+            {
+                pressingAbility--;
+            }
+            if (Input.inputString == "9")
+            {
+                pressingAbility--;
+            }
         }
     }
 
@@ -43,7 +86,6 @@ public class GameSystem : MonoBehaviour {
         if(playerHP <= 0)
         {
             gameIsPlaying = false;
-            Debug.Log("ur dead");
         }
     }
     void checkPlayerPressingButtons()
