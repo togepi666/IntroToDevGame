@@ -349,7 +349,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.49832365, g: 0.2769203, b: 0.6838235, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -609,8 +609,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -10}
-  m_SizeDelta: {x: 193, y: 51}
+  m_AnchoredPosition: {x: 0, y: 72}
+  m_SizeDelta: {x: 309, y: 213}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1971324930
 MonoBehaviour:
@@ -644,7 +644,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Press numbers on the numpad to destroy squares. :)
+  m_Text: "Press numbers on the numpad to destroy squares. :)\n\nEach number on the
+    numpad corresponds to a different color. \n\nTriangle squares are unique squares
+    and provide you with extra life and presses.\n\nHexagon squares are bomb squares
+    and deal lots of damage if they're not destroyed in time."
 --- !u!222 &1971324931
 CanvasRenderer:
   m_ObjectHideFlags: 0

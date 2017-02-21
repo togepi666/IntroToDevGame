@@ -122,8 +122,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000011444001, y: 68.3}
-  m_SizeDelta: {x: 275.5, y: 51.7}
+  m_AnchoredPosition: {x: 0.000011444001, y: 73.5}
+  m_SizeDelta: {x: 276, y: 147}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &104170872
 MonoBehaviour:
@@ -157,7 +157,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Main Menu
+  m_Text: Here's how Bernie Happy Birthday Reid!!!!!!!
 --- !u!222 &104170873
 CanvasRenderer:
   m_ObjectHideFlags: 0
