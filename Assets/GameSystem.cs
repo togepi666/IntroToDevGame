@@ -11,25 +11,25 @@ public class GameSystem : MonoBehaviour {
     public Text pointsText;
     public Text healthText;
     public Text pressesText;
-    public int playerHP = 7;
+    public int playerHP;
     public int pressingAbility = 10;
     bool gameIsPlaying = true;
     public bool canPlayerPressButtons = true;
 
 	// Use this for initialization
 	void Start () {
-        InvokeRepeating("SpawnSquares", 1, 1);
+        playerHP = 100;
+        InvokeRepeating("SpawnSquares", 1, .5f);
         InvokeRepeating("increasePressingButtons", 1, 5);
         Instantiate(keySquares, new Vector3(-9.5f, 4.55f,0), Quaternion.identity);
-        Instantiate(keySquares, new Vector3(-9.5f, 3.85f, 0), Quaternion.identity);
-        Instantiate(keySquares, new Vector3(-9.5f, 3.15f, 0), Quaternion.identity);
-        Instantiate(keySquares, new Vector3(-9.5f, 2.45f, 0), Quaternion.identity);
-        Instantiate(keySquares, new Vector3(-9.5f, 1.75f, 0), Quaternion.identity);
-        Instantiate(keySquares, new Vector3(-9.5f, 1.05f, 0), Quaternion.identity);
-        Instantiate(keySquares, new Vector3(-9.5f, .35f, 0), Quaternion.identity);
-        Instantiate(keySquares, new Vector3(-9.5f, -.35f, 0), Quaternion.identity);
-        Instantiate(keySquares, new Vector3(-9.5f, -1.05f, 0), Quaternion.identity);
-        Instantiate(keySquares, new Vector3(-9.5f, -1.75f, 0), Quaternion.identity);
+        Instantiate(keySquares, new Vector3(-9.5f, 3.77f, 0), Quaternion.identity);
+        Instantiate(keySquares, new Vector3(-9.5f, 2.99f, 0), Quaternion.identity);
+        Instantiate(keySquares, new Vector3(-9.5f, 2.21f, 0), Quaternion.identity);
+        Instantiate(keySquares, new Vector3(-9.5f, 1.43f, 0), Quaternion.identity);
+        Instantiate(keySquares, new Vector3(-9.5f, 0.65f, 0), Quaternion.identity);
+        Instantiate(keySquares, new Vector3(-9.5f, -.13f, 0), Quaternion.identity);
+        Instantiate(keySquares, new Vector3(-9.5f, -.91f, 0), Quaternion.identity);
+        Instantiate(keySquares, new Vector3(-9.5f, -1.69f, 0), Quaternion.identity);
 
     }
 

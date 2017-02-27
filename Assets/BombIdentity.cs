@@ -12,12 +12,14 @@ public class BombIdentity : MonoBehaviour {
     int bonusLife = 0;
     int pressingAbilityBonus = 2;
     bool squareExists = true;
+    int maxLifeSpan;
     // Use this for initialization
     void Start()
     {
 
         bonusLife = (int)Random.Range(0,2);
-        lifeSpan = (int)Random.Range(3, 9);
+        lifeSpan = (int)Random.Range(2, 8);
+        maxLifeSpan = lifeSpan;
         gs = FindObjectOfType(typeof(GameSystem)) as GameSystem;
         listOfColors[0] = new Color(0.863f, 0.078f, 0.235f);//Crimson
         listOfColors[1] = new Color(1.000f, 0.714f, 0.757f);//Light Pink
@@ -37,7 +39,7 @@ public class BombIdentity : MonoBehaviour {
         codes[6] = "7";
         codes[7] = "8";
         codes[8] = "9";
-        int random = (int)Random.Range(0, 9);
+        int random = (int)Random.Range(0, 8);
         GetComponent<SpriteRenderer>().color = listOfColors[random];
         identity = codes[random];
         InvokeRepeating("SquareLife", 0, 1);
@@ -48,7 +50,7 @@ public class BombIdentity : MonoBehaviour {
     void Update()
     {
         if (squareExists)
-            transform.localScale = new Vector3(transform.localScale.x * .99f, transform.localScale.y * .99f, 0);
+            transform.localScale = new Vector3(transform.lossyScale.x - (2.5f / (maxLifeSpan * 60f)), transform.lossyScale.y - (2.5f / (maxLifeSpan * 60f)), 0);
         if (gs.canPlayerPressButtons)
         {
             if (Input.inputString == identity)
@@ -80,7 +82,7 @@ public class BombIdentity : MonoBehaviour {
 
     void checkSquareLife()
     {
-        if (lifeSpan == 0)
+        if (lifeSpan == -1)
         {
             Destroy(gameObject);
             squareExists = false;

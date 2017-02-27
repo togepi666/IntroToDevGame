@@ -189,7 +189,7 @@ MonoBehaviour:
   pointsText: {fileID: 826762517}
   healthText: {fileID: 1736089579}
   pressesText: {fileID: 1293135524}
-  playerHP: 7
+  playerHP: 0
   pressingAbility: 5
   canPlayerPressButtons: 1
 --- !u!4 &473576840
@@ -1126,8 +1126,8 @@ RectTransform:
   m_RootOrder: 3
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 43, y: -253}
-  m_SizeDelta: {x: 66, y: 456}
+  m_AnchoredPosition: {x: 58, y: -250}
+  m_SizeDelta: {x: 66, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1557249734
 MonoBehaviour:
@@ -1177,9 +1177,7 @@ MonoBehaviour:
 
     8
 
-    9
-
-'
+    9'
 --- !u!222 &1557249735
 CanvasRenderer:
   m_ObjectHideFlags: 0

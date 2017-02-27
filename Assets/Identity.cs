@@ -4,18 +4,16 @@ public class Identity : MonoBehaviour {
     Color[] listOfColors = new Color[9];
     string[] codes = new string[9];
     string identity;
-    int lifeSpan;
     public GameSystem gs;
     int worth = 1;
     int bonusLife = 0;
     int pressingAbilityBonus = 1;
     bool squareExists = true;
-    int maxLifeSpan;
+    float rate;
+    //Vector3 originalScale;
 	// Use this for initialization
-	void Start () { 
-            bonusLife = (int)Random.Range(0, 2);
-        lifeSpan = (int)Random.Range(3, 10);
-        maxLifeSpan = lifeSpan;
+	void Start () {
+        bonusLife = (int)Random.Range(0, 2);
         gs = FindObjectOfType(typeof(GameSystem)) as GameSystem;
         listOfColors[0] = new Color(0.863f, 0.078f, 0.235f);//Crimson
         listOfColors[1] = new Color(1.000f, 0.714f, 0.757f);//Light Pink
@@ -38,14 +36,18 @@ public class Identity : MonoBehaviour {
         int random = (int)Random.Range(0,9);
         GetComponent<SpriteRenderer>().color = listOfColors[random];
         identity = codes[random];
-        InvokeRepeating("SquareLife", 0,1);
-        InvokeRepeating("shrinkSquares", 0, 1);
+        rate = .04f * Random.Range(1, 2);
+        //InvokeRepeating("SquareLife", 0,1);
 	}
+    float startTime;
 	
 	// Update is called once per frame
 	void Update () {
-        if(squareExists)
-        transform.localScale = new Vector3(transform.localScale.x - (2.5f/(maxLifeSpan*34)), transform.localScale.y - (2.5f/(maxLifeSpan*34)), 0);
+        if (squareExists)
+        {
+            //transform.localScale = Vector3.Lerp(originalScale, Vector3.zero, (Time.time - startTime) / maxLifeSpan);
+            transform.localScale = new Vector3(transform.lossyScale.x - rate, transform.lossyScale.y - rate, 0);
+        }
         if (gs.canPlayerPressButtons) {
             if (Input.inputString == identity)
             {
@@ -54,7 +56,8 @@ public class Identity : MonoBehaviour {
             }
         }
         checkSquareLife();
-        Debug.Log(maxLifeSpan);
+
+        Debug.Log("hello");
 	}
 
     void squareIsPressed()
@@ -70,18 +73,13 @@ public class Identity : MonoBehaviour {
         gs.pressingAbility = gs.pressingAbility + bonus;
     }
 
-    void SquareLife()
-    {
-        lifeSpan--;
-    }
-
     void checkSquareLife()
     {
-        if (lifeSpan == 0)
+       if(GetComponent<Transform>().localScale.x <= 0)
         {
             Destroy(gameObject);
-            squareExists = false;
             gs.playerHP--;
+            squareExists = false;
         }
     }
 }

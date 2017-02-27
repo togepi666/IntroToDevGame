@@ -11,12 +11,14 @@ public class UniqueIdentity : MonoBehaviour {
     int bonusLife = 0;
     int pressingAbilityBonus = 2;
     bool squareExists = true;
+    int maxLifeSpan;
     // Use this for initialization
     void Start()
     {
        
         bonusLife = (int)Random.Range(0, 3);
-        lifeSpan = (int)Random.Range(3, 10);
+        lifeSpan = (int)Random.Range(2, 8);
+        maxLifeSpan = lifeSpan;
         gs = FindObjectOfType(typeof(GameSystem)) as GameSystem;
         listOfColors[0] = new Color(0.863f, 0.078f, 0.235f);//Crimson
         listOfColors[1] = new Color(1.000f, 0.714f, 0.757f);//Light Pink
@@ -40,14 +42,13 @@ public class UniqueIdentity : MonoBehaviour {
         GetComponent<SpriteRenderer>().color = listOfColors[random];
         identity = codes[random];
         InvokeRepeating("SquareLife", 0, 1);
-        InvokeRepeating("shrinkSquares", 0, 1);
     }
 
     // Update is called once per frame
     void Update()
     {
         if (squareExists)
-            transform.localScale = new Vector3(transform.localScale.x * .99f, transform.localScale.y * .99f, 0);
+            transform.localScale = new Vector3(transform.lossyScale.x - (2.5f / (maxLifeSpan * 60f)), transform.lossyScale.y - (2.5f / (maxLifeSpan * 60f)), 0); 
         if (gs.canPlayerPressButtons)
         {
             if (Input.inputString == identity)
@@ -79,7 +80,7 @@ public class UniqueIdentity : MonoBehaviour {
 
     void checkSquareLife()
     {
-        if (lifeSpan == 0)
+        if (lifeSpan == -1)
         {
             Destroy(gameObject);
             squareExists = false;
