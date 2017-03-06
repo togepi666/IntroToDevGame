@@ -1,8 +1,8 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class UniqueIdentity : MonoBehaviour {
-    string[] codes = new string[9];
+public class SwitcherSquareIdentity : MonoBehaviour {
     string identity;
     public GameSystem gs;
     int worth = 5;
@@ -11,25 +11,23 @@ public class UniqueIdentity : MonoBehaviour {
     bool squareExists = true;
     float rate;
     int random;
+    int Change1;
+    int Change2;
     // Use this for initialization
     void Start()
     {
-       
+        Change1 = (int)Random.Range(0, 9);
+        Change2 = (int)Random.Range(0, 9);
+        while (Change1 == Change2)
+        {
+            Change2 = (int)Random.Range(0, 9);
+        }
         bonusLife = (int)Random.Range(0, 3);
         gs = FindObjectOfType(typeof(GameSystem)) as GameSystem;
-        codes[0] = "1";
-        codes[1] = "2";
-        codes[2] = "3";
-        codes[3] = "4";
-        codes[4] = "5";
-        codes[5] = "6";
-        codes[6] = "7";
-        codes[7] = "8";
-        codes[8] = "9";
         random = (int)Random.Range(0, 9);
         GetComponent<SpriteRenderer>().color = gs.listOfColors[random];
         identity = gs.codes[random];
-        rate = .04f * Random.Range(1,1.5f);
+        rate = .04f * Random.Range(1, 1.3f);
     }
 
     // Update is called once per frame
@@ -69,6 +67,10 @@ public class UniqueIdentity : MonoBehaviour {
             Destroy(gameObject);
             gs.playerHP--;
             squareExists = false;
+            Color holder = gs.keys[Change1].GetComponent<SpriteRenderer>().color;
+            gs.keys[Change1].GetComponent<SpriteRenderer>().color = gs.keys[Change2].GetComponent<SpriteRenderer>().color;
+            gs.keys[Change2].GetComponent<SpriteRenderer>().color = holder;
+            gs.UpdateKey(Change1,Change2);
         }
     }
 }

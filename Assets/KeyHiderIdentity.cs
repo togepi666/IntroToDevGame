@@ -1,30 +1,31 @@
-﻿using UnityEngine;
-using System.Collections;
-public class Identity : MonoBehaviour {
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class KeyHiderIdentity : MonoBehaviour {
     string[] codes = new string[9];
     string identity;
+    int random;
     public GameSystem gs;
     int worth = 1;
     int bonusLife = 0;
-    int pressingAbilityBonus = 1;
+    int pressingAbilityBonus = 2;
     bool squareExists = true;
     float rate;
-    int random;
-    //Vector3 originalScale;
+    public int Change1;
+    public int Change2; 
     // Use this for initialization
-    void Start () {
-        random = (int)Random.Range(0, 9);
+    void Start()
+    {
+       /* Change1 = (int)Random.Range(0, 9);
+        Change2 = (int)Random.Range(0, 9);
+        while(Change1 == Change2)
+        {
+            Change2 = (int)Random.Range(0, 9);
+        }
+        */
         bonusLife = (int)Random.Range(0, 2);
         gs = FindObjectOfType(typeof(GameSystem)) as GameSystem;
-       // listOfColors[0] = new Color(0.863f, 0.078f, 0.235f);//Crimson
-       // listOfColors[1] = new Color(1.000f, 0.714f, 0.757f);//Light Pink
-        //listOfColors[2] = new Color(1.000f, 0.000f, 1.000f);//Magenta
-        //listOfColors[3] = new Color(0.627f, 0.322f, 0.176f);//Sienna
-       // listOfColors[4] = new Color(0.000f, 0.502f, 0.502f);//Teal
-       // listOfColors[5] = new Color(0.498f, 1.000f, 0.831f);//Aquamarine
-        //listOfColors[6] = new Color(0.118f, 0.565f, 1.000f);//DodgerBlue
-        //listOfColors[7] = new Color(0.467f, 0.533f, 0.600f);//LightGrey
-        //listOfColors[8] = new Color(1.000f, 0.843f, 0.000f);//Gold
         codes[0] = "1";
         codes[1] = "2";
         codes[2] = "3";
@@ -34,23 +35,20 @@ public class Identity : MonoBehaviour {
         codes[6] = "7";
         codes[7] = "8";
         codes[8] = "9";
-        
-
+        random = (int)Random.Range(0, 9);
         GetComponent<SpriteRenderer>().color = gs.listOfColors[random];
         identity = gs.codes[random];
         rate = .04f * Random.Range(1, 1.3f);
-        //InvokeRepeating("SquareLife", 0,1);
-	}
-    //float startTime;
-	
-	// Update is called once per frame
-	void Update () {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         if (squareExists)
-        {
-            //transform.localScale = Vector3.Lerp(originalScale, Vector3.zero, (Time.time - startTime) / maxLifeSpan);
             transform.localScale = new Vector3(transform.lossyScale.x - rate, transform.lossyScale.y - rate, 0);
-        }
-        if (gs.canPlayerPressButtons) {
+        if (gs.canPlayerPressButtons)
+        {
             if (Input.inputString == identity)
             {
                 squareIsPressed();
@@ -58,17 +56,14 @@ public class Identity : MonoBehaviour {
             }
         }
         checkSquareLife();
-
-        Debug.Log("hello");
-	}
+    }
 
     void squareIsPressed()
     {
-        
+
         Destroy(gameObject);
         gs.increasePoint(worth);
         gs.playerHP += bonusLife;
-        Debug.Log("step 1");
         gs.isActive(random);
     }
 
@@ -79,11 +74,18 @@ public class Identity : MonoBehaviour {
 
     void checkSquareLife()
     {
-       if(GetComponent<Transform>().localScale.x <= 0)
+        if (GetComponent<Transform>().localScale.x <= 0)
         {
             Destroy(gameObject);
-            gs.playerHP--;
+            gs.playerHP -= 1 ;
             squareExists = false;
+            for (int i = 0; i < 9; i++)
+            {
+                gs.keys[i].GetComponent<Renderer>().enabled = false;
+            }
+            //Color holder = gs.keys[Change1].GetComponent<SpriteRenderer>().color;
+           // gs.keys[Change1].GetComponent<SpriteRenderer>().color = gs.keys[Change2].GetComponent<SpriteRenderer>().color;
+           // gs.keys[Change1].GetComponent<SpriteRenderer>().color = holder;
         }
     }
 }

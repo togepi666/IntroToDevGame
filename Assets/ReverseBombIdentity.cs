@@ -1,21 +1,23 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class UniqueIdentity : MonoBehaviour {
+public class ReverseBombIdentity : MonoBehaviour {
+
     string[] codes = new string[9];
     string identity;
+
     public GameSystem gs;
-    int worth = 5;
-    int bonusLife = 1;
+    int worth = 1;
+    int bonusLife = 0;
     int pressingAbilityBonus = 2;
     bool squareExists = true;
     float rate;
-    int random;
     // Use this for initialization
     void Start()
     {
-       
-        bonusLife = (int)Random.Range(0, 3);
+
+        bonusLife = (int)Random.Range(0, 2);
         gs = FindObjectOfType(typeof(GameSystem)) as GameSystem;
         codes[0] = "1";
         codes[1] = "2";
@@ -26,10 +28,11 @@ public class UniqueIdentity : MonoBehaviour {
         codes[6] = "7";
         codes[7] = "8";
         codes[8] = "9";
-        random = (int)Random.Range(0, 9);
+        int random = (int)Random.Range(0, 9);
         GetComponent<SpriteRenderer>().color = gs.listOfColors[random];
         identity = gs.codes[random];
-        rate = .04f * Random.Range(1,1.5f);
+        rate = .04f * Random.Range(1, 2);
+
     }
 
     // Update is called once per frame
@@ -53,8 +56,7 @@ public class UniqueIdentity : MonoBehaviour {
 
         Destroy(gameObject);
         gs.increasePoint(worth);
-        gs.playerHP += bonusLife;
-        gs.isActive(random);
+        gs.playerHP -= 10;
     }
 
     void pressingAbilityFunction(int bonus)
@@ -67,7 +69,7 @@ public class UniqueIdentity : MonoBehaviour {
         if (GetComponent<Transform>().localScale.x <= 0)
         {
             Destroy(gameObject);
-            gs.playerHP--;
+            gs.playerHP = gs.playerHP + bonusLife;
             squareExists = false;
         }
     }
