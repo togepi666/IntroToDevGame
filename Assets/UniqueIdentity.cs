@@ -29,7 +29,7 @@ public class UniqueIdentity : MonoBehaviour {
         random = (int)Random.Range(0, 9);
         GetComponent<SpriteRenderer>().color = gs.listOfColors[random];
         identity = gs.codes[random];
-        rate = .04f * Random.Range(1,1.5f);
+        rate = .02f * Random.Range(1,1.5f);
     }
 
     // Update is called once per frame

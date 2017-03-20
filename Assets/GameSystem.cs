@@ -80,7 +80,7 @@ public class GameSystem : MonoBehaviour {
             keys[x].GetComponent<SpriteRenderer>().color = listOfColors[x];
             keys[x] = Instantiate(keys[x], keyPositions[x], Quaternion.identity) as GameObject;
             keys[x].transform.parent = transform;
-            keys[x].GetComponent<Renderer>().enabled =true;
+            keys[x].GetComponent<Renderer>().enabled =false;
             Debug.Log("Works");
         }
         /*/
@@ -98,7 +98,7 @@ public class GameSystem : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        spawnPoint = (int)Random.Range(0, 19);
+        spawnPoint = (int)Random.Range(0, 18);
         pointsText.text = "Points:" + points;
         healthText.text = "Health:" + playerHP;
         pressesText.text = "Presses:" + pressingAbility;

@@ -30,7 +30,7 @@ public class BombIdentity : MonoBehaviour {
         random = (int)Random.Range(0, 9);
         GetComponent<SpriteRenderer>().color = gs.listOfColors[random];
         identity = codes[random];
-        rate = .04f * Random.Range(1, 1.5f);
+        rate = .02f * Random.Range(1, 1.5f);
 
     }
 
