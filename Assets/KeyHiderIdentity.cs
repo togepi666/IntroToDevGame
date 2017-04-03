@@ -38,7 +38,7 @@ public class KeyHiderIdentity : MonoBehaviour {
         random = (int)Random.Range(0, 9);
         GetComponent<SpriteRenderer>().color = gs.listOfColors[random];
         identity = gs.codes[random];
-        rate = .02f * Random.Range(1, 1.2f);
+        rate = .015f * Random.Range(1, 1.2f);
 
     }
 

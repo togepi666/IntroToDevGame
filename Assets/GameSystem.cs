@@ -29,15 +29,15 @@ public class GameSystem : MonoBehaviour {
         playerHP = 100;
         InvokeRepeating("SpawnSquares", 1, .5f);
         InvokeRepeating("increasePressingButtons", 1, 5);
-        keyPositions[0] = new Vector3(-9.5f, 4.55f, 1);
-        keyPositions[1] = new Vector3(-9.5f, 3.77f, 1);
-        keyPositions[2] = new Vector3(-9.5f, 2.99f, 1);
-        keyPositions[3] = new Vector3(-9.5f, 2.21f, 1);
-        keyPositions[4] = new Vector3(-9.5f, 1.43f, 1);
-        keyPositions[5] = new Vector3(-9.5f, 0.65f, 1);
-        keyPositions[6] = new Vector3(-9.5f, -.13f, 1);
-        keyPositions[7] = new Vector3(-9.5f, -.91f, 1);
-        keyPositions[8] = new Vector3(-9.5f, -1.69f, 1);
+        keyPositions[0] = new Vector3(-10.3f, 4.2f, 1);
+        keyPositions[1] = new Vector3(-8.8f, 4.2f, 1);
+        keyPositions[2] = new Vector3(-7.3f, 4.2f, 1);
+        keyPositions[3] = new Vector3(-10.3f, 2.7f, 1);
+        keyPositions[4] = new Vector3(-8.8f, 2.7f, 1);
+        keyPositions[5] = new Vector3(-7.3f, 2.7f, 1);
+        keyPositions[6] = new Vector3(-10.3f, 1.2f, 1);
+        keyPositions[7] = new Vector3(-8.8f, 1.2f, 1);
+        keyPositions[8] = new Vector3(-7.3f, 1.2f, 1);
         listOfColors[0] = new Color(0.863f, 0.078f, 0.235f);//Crimson
         listOfColors[1] = new Color(1.000f, 0.714f, 0.757f);//Light Pink
         listOfColors[2] = new Color(1.000f, 0.000f, 1.000f);//Magenta

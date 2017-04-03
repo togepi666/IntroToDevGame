@@ -38,7 +38,7 @@ public class Identity : MonoBehaviour {
 
         GetComponent<SpriteRenderer>().color = gs.listOfColors[random];
         identity = gs.codes[random];
-        rate = .02f * Random.Range(1, 1.3f);
+        rate = .015f * Random.Range(1, 1.3f);
         //InvokeRepeating("SquareLife", 0,1);
 	}
     //float startTime;
