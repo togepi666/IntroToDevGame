@@ -2,45 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KeyHiderIdentity : MonoBehaviour {
-    string[] codes = new string[9];
+public class KeyHiderIdentity : MonoBehaviour { 
     string identity;
     int random;
     public GameSystem gs;
     int worth = 1;
     int bonusLife = 0;
-    int pressingAbilityBonus = 2;
+    int pressingAbilityBonus = 1;
     bool squareExists = true;
     float rate;
     public int Change1;
     public int Change2;
     bool justOnce = true;
+    public ParticleSystem die;
+    Vector3 location;
+
     // Use this for initialization
     void Start()
     {
-       /* Change1 = (int)Random.Range(0, 9);
-        Change2 = (int)Random.Range(0, 9);
-        while(Change1 == Change2)
-        {
-            Change2 = (int)Random.Range(0, 9);
-        }
-        */
-        bonusLife = (int)Random.Range(0, 2);
+        /* Change1 = (int)Random.Range(0, 9);
+         Change2 = (int)Random.Range(0, 9);
+         while(Change1 == Change2)
+         {
+             Change2 = (int)Random.Range(0, 9);
+         }
+         */
+        location = transform.position;
+        bonusLife = (int)Random.Range(0,1);
         gs = FindObjectOfType(typeof(GameSystem)) as GameSystem;
-        codes[0] = "1";
-        codes[1] = "2";
-        codes[2] = "3";
-        codes[3] = "4";
-        codes[4] = "5";
-        codes[5] = "6";
-        codes[6] = "7";
-        codes[7] = "8";
-        codes[8] = "9";
         random = (int)Random.Range(0, 9);
         GetComponent<SpriteRenderer>().color = gs.listOfColors[random];
         identity = gs.codes[random];
-        rate = .01f * Random.Range(1, 1.2f);
-
+        rate = .01f * Random.Range(.6f + gs.scaler, 1f+gs.scaler);
     }
 
     // Update is called once per frame
@@ -53,6 +46,7 @@ public class KeyHiderIdentity : MonoBehaviour {
             if (Input.inputString == identity  && justOnce)
             {
                 squareIsPressed();
+                gs.correctPress = true;
                 pressingAbilityFunction(pressingAbilityBonus);
             }
         }
@@ -61,7 +55,8 @@ public class KeyHiderIdentity : MonoBehaviour {
 
     void squareIsPressed()
     {
-
+        gs.playCorrectSounds();
+        Instantiate(die,location,Quaternion.identity);
         Destroy(gameObject);
         gs.increasePoint(worth);
         gs.playerHP += bonusLife;
@@ -79,8 +74,7 @@ public class KeyHiderIdentity : MonoBehaviour {
         {
             justOnce = false;
             GetComponent<AudioSource>().Play();
-            Debug.Log("Should play");
-            gs.playerHP -= 1 ;
+            gs.playerHP = gs.playerHP - 3;
             squareExists = false;
 
             for (int i = 0; i < 9; i++)

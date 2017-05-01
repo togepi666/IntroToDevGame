@@ -18,8 +18,8 @@ public class BackgroundMover2 : MonoBehaviour {
 	}
     void function()
     {
-        x++;
-        location.x = -(30 * Mathf.Sin(x / 150f));
+        x= x+2;
+        location.x = -(19 * Mathf.Sin(x / 100f));
         transform.position = location;
 
     }

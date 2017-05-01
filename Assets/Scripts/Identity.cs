@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 public class Identity : MonoBehaviour {
-    string[] codes = new string[9];
     string identity;
     public GameSystem gs;
     int worth = 1;
@@ -11,9 +10,13 @@ public class Identity : MonoBehaviour {
     float rate;
     int random;
     bool justOnce = true;
+    public ParticleSystem thing;
+    Vector3 location;
+    public AudioSource correctclick;
     //Vector3 originalScale;
     // Use this for initialization
     void Start () {
+        location = transform.position;
         random = (int)Random.Range(0, 9);
         bonusLife = (int)Random.Range(0, 2);
         gs = FindObjectOfType(typeof(GameSystem)) as GameSystem;
@@ -26,15 +29,6 @@ public class Identity : MonoBehaviour {
         //listOfColors[6] = new Color(0.118f, 0.565f, 1.000f);//DodgerBlue
         //listOfColors[7] = new Color(0.467f, 0.533f, 0.600f);//LightGrey
         //listOfColors[8] = new Color(1.000f, 0.843f, 0.000f);//Gold
-        codes[0] = "1";
-        codes[1] = "2";
-        codes[2] = "3";
-        codes[3] = "4";
-        codes[4] = "5";
-        codes[5] = "6";
-        codes[6] = "7";
-        codes[7] = "8";
-        codes[8] = "9";
         
 
         GetComponent<SpriteRenderer>().color = gs.listOfColors[random];
@@ -54,18 +48,18 @@ public class Identity : MonoBehaviour {
         if (gs.canPlayerPressButtons) {
             if (Input.inputString == identity && justOnce)
             {
+                gs.correctPress = true;
                 squareIsPressed();
                 pressingAbilityFunction(pressingAbilityBonus);
             }
         }
         checkSquareLife();
-
-        Debug.Log("hello");
 	}
 
     void squareIsPressed()
     {
-        
+        gs.playCorrectSounds();
+        Instantiate(thing, location, Quaternion.identity);
         Destroy(gameObject);
         gs.increasePoint(worth);
         gs.playerHP += bonusLife;

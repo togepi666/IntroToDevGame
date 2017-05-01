@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ReverseBombIdentity : MonoBehaviour {
 
-    string[] codes = new string[9];
     string identity;
 
     public GameSystem gs;
@@ -14,25 +13,18 @@ public class ReverseBombIdentity : MonoBehaviour {
     bool squareExists = true;
     float rate;
     bool justOnce = true;
+    public ParticleSystem thing;
+    Vector3 location;
     // Use this for initialization
     void Start()
     {
-
+        location = transform.position ;
         bonusLife = (int)Random.Range(0, 2);
         gs = FindObjectOfType(typeof(GameSystem)) as GameSystem;
-        codes[0] = "1";
-        codes[1] = "2";
-        codes[2] = "3";
-        codes[3] = "4";
-        codes[4] = "5";
-        codes[5] = "6";
-        codes[6] = "7";
-        codes[7] = "8";
-        codes[8] = "9";
         int random = (int)Random.Range(0, 9);
         GetComponent<SpriteRenderer>().color = gs.listOfColors[random];
         identity = gs.codes[random];
-        rate = .01f * Random.Range(1, 2);
+        rate = .01f * Random.Range(1+gs.scaler, 2+gs.scaler);
 
     }
 
@@ -47,6 +39,7 @@ public class ReverseBombIdentity : MonoBehaviour {
             {
                 squareIsPressed();
                 pressingAbilityFunction(pressingAbilityBonus);
+                gs.correctPress = true;
             }
         }
         checkSquareLife();
@@ -54,9 +47,11 @@ public class ReverseBombIdentity : MonoBehaviour {
 
     void squareIsPressed()
     {
-
-        Destroy(gameObject);
-        gs.increasePoint(worth);
+        gs.playIncorrectSounds();
+        transform.localScale = new Vector3(0, 0, 0);
+        GetComponent<AudioSource>().Play();
+        Destroy(gameObject,1f);
+        
         gs.playerHP -= 10;
     }
 
@@ -69,9 +64,10 @@ public class ReverseBombIdentity : MonoBehaviour {
     {
         if (GetComponent<Transform>().localScale.x <= 0 && justOnce == true)
         {
+            Instantiate(thing, location, Quaternion.identity);
             justOnce = false;
-            GetComponent<AudioSource>().Play();
-            Destroy(gameObject,5f);
+            gs.increasePoint(worth);
+            Destroy(gameObject,2f);
             gs.playerHP = gs.playerHP + bonusLife;
             squareExists = false;
         }

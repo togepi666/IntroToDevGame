@@ -2,35 +2,29 @@
 using System.Collections;
 
 public class UniqueIdentity : MonoBehaviour {
-    string[] codes = new string[9];
+
     string identity;
     public GameSystem gs;
     int worth = 5;
     int bonusLife = 1;
-    int pressingAbilityBonus = 2;
+    int pressingAbilityBonus = 3;
     bool squareExists = true;
     float rate;
     int random;
     bool justOnce = true;
+    public ParticleSystem die;
+    Vector3 location;
     // Use this for initialization
     void Start()
     {
-       
+        location = transform.position;
+
         bonusLife = (int)Random.Range(0, 3);
         gs = FindObjectOfType(typeof(GameSystem)) as GameSystem;
-        codes[0] = "1";
-        codes[1] = "2";
-        codes[2] = "3";
-        codes[3] = "4";
-        codes[4] = "5";
-        codes[5] = "6";
-        codes[6] = "7";
-        codes[7] = "8";
-        codes[8] = "9";
         random = (int)Random.Range(0, 9);
         GetComponent<SpriteRenderer>().color = gs.listOfColors[random];
         identity = gs.codes[random];
-        rate = .02f * Random.Range(1,1.5f);
+        rate = .02f * Random.Range(1 + gs.scaler,1.5f + gs.scaler);
     }
 
     // Update is called once per frame
@@ -42,6 +36,7 @@ public class UniqueIdentity : MonoBehaviour {
         {
             if (Input.inputString == identity && justOnce)
             {
+                gs.correctPress = true;
                 squareIsPressed();
                 pressingAbilityFunction(pressingAbilityBonus);
             }
@@ -51,7 +46,9 @@ public class UniqueIdentity : MonoBehaviour {
 
     void squareIsPressed()
     {
+        Instantiate(die, location, Quaternion.identity);
 
+        gs.playCorrectSounds();
         Destroy(gameObject);
         gs.increasePoint(worth);
         gs.playerHP += bonusLife;
